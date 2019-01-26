@@ -100,6 +100,20 @@ class Sdl_renderer {
         SDL_RenderFillRect(renderer_, &rect);
     }
 
+    void draw_rect(int x, int y, int w, int h, int color_r, int color_g, int color_b)
+    {
+        uint8_t r,g,b,a;
+        SDL_GetRenderDrawColor(renderer_, &r, &g, &b, &a);
+        SDL_SetRenderDrawColor(renderer_, color_r, color_g, color_b, SDL_ALPHA_OPAQUE);
+        SDL_Rect rect;
+        rect.x = x;
+        rect.y = y;
+        rect.w = w;
+        rect.h = h;
+        SDL_RenderDrawRect(renderer_, &rect);
+        SDL_SetRenderDrawColor(renderer_, r, g, b, SDL_ALPHA_OPAQUE);
+    }
+
     operator SDL_Renderer*() { return renderer_; }
 
    private:

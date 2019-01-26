@@ -6,7 +6,7 @@
 
 class Player : public Game_object {
 public:
-    Player();
+    Player(sdlxx::Sdl_renderer & renderer);
     void update() override;
     void draw(sdlxx::Sdl_renderer & renderer) override;
     void collide(Game_object & rhs) override;
@@ -20,6 +20,8 @@ private:
     bool ready_for_double_jump = false;
     bool double_jump = false;
     int jump_frame = 0;
+
+    sdlxx::Sdl_texture texture;
 };
 
 #endif

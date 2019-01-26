@@ -6,8 +6,8 @@
 
 Platforming_scene::Platforming_scene(sdlxx::Sdl_renderer & renderer)
 {
-    scene_objects.emplace_back(std::make_unique<Player>());
-	scene_objects.emplace_back(std::make_unique<Minion>());
+    scene_objects.emplace_back(std::make_unique<Player>(renderer));
+    scene_objects.emplace_back(std::make_unique<Minion>());
 
     scene_objects.emplace_back(std::make_unique<Platform>(0, window_height - 10,
                                                           window_width,

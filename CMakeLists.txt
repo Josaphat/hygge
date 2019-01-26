@@ -12,6 +12,7 @@ else()
   add_executable(hygge main.cpp
     scene.cpp
     player.cpp
+    minion.cpp
     sceneimporter.cpp
 
     platforming_scene.cpp
