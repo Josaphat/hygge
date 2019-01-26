@@ -7,6 +7,7 @@
 #include "input_map.h"
 #include "screen_config.h"
 #include "platforming_scene.h"
+#include "include/sceneimporter.h"
 
 using namespace std::chrono_literals;
 using namespace std::string_literals;
@@ -37,6 +38,8 @@ int main(int argc, char* argv[])
     auto previous = std::chrono::high_resolution_clock::now();
     auto lag = previous - previous;
 
+    SceneImporter importer;
+    importer.load("scene1.bmp"s);
     bool quit{false};
     while (!quit) {
         auto current = std::chrono::high_resolution_clock::now();

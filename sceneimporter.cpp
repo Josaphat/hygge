@@ -34,28 +34,37 @@ void SceneImporter::load(std::string path) {
     //          skip
     //    create new object of pixel's color, with bounds including the pixel
 
-    SDL_Color * color;
-    Uint8 *index;
+    Uint32 temp;
+    Uint8 * pixel;
+    Uint8 red, green, blue;
 
     fmt = surface->format;
+    SDL_LockSurface(surface);
+    pixel = ((Uint8*)surface->pixels);
+    SDL_UnlockSurface(surface);
 
 
-
-    index = (Uint8 *)surface->pixels;
     for (int y = 0; y < surface->h; ++y) {
         for (int x = 0; x < surface->w; ++x) {
+            /* Get Blue component */
             SDL_LockSurface(surface);
-            
-            /* Get the topleft pixel */
-            color = &fmt->palette->colors[*index];
+            blue = (Uint8)(*(pixel + fmt->Bshift));
+
+            /* Get Green component */
+            green = (Uint8)(*(pixel + fmt->Rshift));
+
+            /* Get Red component */
+            red = (Uint8)(*(pixel + fmt->Gshift));
+
+
+
+            if (red > 0 && red < 255) {
+                printf("Pixel Color -> R: %d,  G: %d,  B: %d, x: %d, y: %d\n", red, green, blue, x, y);
+            }
+
+            pixel += fmt->BytesPerPixel;
 
             SDL_UnlockSurface(surface);
-
-            if (color->r > 0 && color->r < 255) {
-                printf("Pixel Color-> Red: %d, Green: %d, Blue: %d. Index: %d\n",
-                    color->r, color->g, color->b, *index);
-            }
-            index += fmt->BytesPerPixel;
         }
     }
     printf("w: %d, h: %d\n", surface->w, surface->h);
