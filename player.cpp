@@ -1,14 +1,20 @@
 #include "player.h"
 #include "screen_config.h"
+#include "input_map.h"
 
 Player::Player()
+    : position{0, static_cast<double>(window_height - height)}
 {
-    position.x = 0;
-    position.y = window_height - height;
 }
 
 void Player::update()
 {
+    if (input_state.move_left) {
+        position.x -= velocity;
+    }
+    if (input_state.move_right) {
+        position.x += velocity;
+    }
 }
 
 void Player::draw(sdlxx::Sdl_renderer & renderer)

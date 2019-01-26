@@ -13,7 +13,8 @@ public:
 private:
     const int width = 50;
     const int height = 75;
-    Vec2 position;
+    Vec2 position {0, 0};
+    int velocity = 5;
 };
 
 #endif
