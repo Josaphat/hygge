@@ -10,10 +10,37 @@ Player::Player()
 void Player::update()
 {
     if (input_state.move_left) {
-        position.x -= velocity;
+        position.x -= move_speed;
     }
     if (input_state.move_right) {
-        position.x += velocity;
+        position.x += move_speed;
+    }
+
+    if (input_state.jump && !jumping){
+        jumping = true;
+        velocity.y = -30;
+        jump_frame = 0;
+        ready_for_double_jump = false;
+    }
+    if (!ready_for_double_jump && jumping && !input_state.jump) {
+        ready_for_double_jump = true;
+    }
+    if (ready_for_double_jump && input_state.jump && !double_jump) {
+        double_jump = true;
+        velocity.y = -30;
+        jump_frame = 0;
+    }
+
+    if (jumping) {
+        ++jump_frame;
+
+        velocity.y += gravity;
+        position.y += velocity.y;
+        if (position.y >= window_height - height) {
+            position.y = window_height - height;
+            jumping = false;
+            double_jump = false;
+        }
     }
 }
 

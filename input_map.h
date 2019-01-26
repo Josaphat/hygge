@@ -4,6 +4,7 @@
 struct Input_map {
     bool move_left = false;
     bool move_right = false;
+    bool jump = false;
 };
 
 // Global Input state

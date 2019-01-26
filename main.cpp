@@ -63,6 +63,7 @@ int main(int argc, char* argv[])
 
                 case SDLK_w:
                 case SDLK_UP:
+                    input_state.jump = true;
                     break;
                 case SDLK_s:
                 case SDLK_DOWN:
@@ -83,6 +84,7 @@ int main(int argc, char* argv[])
                 switch (e.key.keysym.sym) {
                 case SDLK_w:
                 case SDLK_UP:
+                    input_state.jump = false;
                     break;
                 case SDLK_s:
                 case SDLK_DOWN:

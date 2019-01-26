@@ -14,7 +14,16 @@ private:
     const int width = 50;
     const int height = 75;
     Vec2 position {0, 0};
-    int velocity = 5;
+    Vec2 velocity {0, 0};
+
+    const int move_speed = 5;
+    const int air_move_speed = 5;
+    const int gravity = 2;
+
+    bool jumping = false;
+    bool ready_for_double_jump = false;
+    bool double_jump = false;
+    int jump_frame = 0;
 };
 
 #endif
