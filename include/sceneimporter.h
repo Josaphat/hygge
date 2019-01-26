@@ -19,11 +19,12 @@ namespace sdlxx {
             G = 'G',
         };
 
-        SceneImporter();
+        SceneImporter(Sdl_renderer & ren);
         ~SceneImporter();
 
         Scene load(std::string path);
     private:
+        Sdl_renderer & renderer;
         std::map<Symbol, std::vector<SDL_Rect>> objects;
     };
 }

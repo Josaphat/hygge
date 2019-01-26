@@ -9,7 +9,7 @@
 using namespace sdlxx;
 using namespace std;
 
-SceneImporter::SceneImporter() {
+SceneImporter::SceneImporter(Sdl_renderer & ren) : renderer(ren) {
 }
 
 SceneImporter::~SceneImporter() {
@@ -97,7 +97,7 @@ Scene SceneImporter::load(string path) {
                 rect.h *= 10;
                 switch (sym) {
                 case Symbol::G:
-                    scene.addObject(std::make_unique<Player>());
+                    scene.addObject(std::make_unique<Player>(renderer));
                     break;
                 case Symbol::R:
                     scene.addObject(std::make_unique<Platform>(rect.x, rect.y, rect.w, rect.h));

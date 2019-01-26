@@ -30,7 +30,7 @@ int main(int argc, char* argv[])
     auto ren = Sdl_renderer(
         window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 
-    SceneImporter importer;
+    SceneImporter importer{ ren };
     Scene scene = importer.load("scene1.txt"s);
     Platforming_scene platform_scene{ren};
     auto & current_scene = scene;
