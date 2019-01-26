@@ -15,6 +15,8 @@ using namespace std::string_literals;
 // Global Input Map
 Input_map input_state;
 
+Scene * current_scene;
+
 int main(int argc, char* argv[])
 {
     using namespace sdlxx;
@@ -33,8 +35,7 @@ int main(int argc, char* argv[])
     SceneImporter importer{ren};
     Platforming_scene scene = importer.load("scene1.txt"s);
     // Platforming_scene platform_scene{ren};
-    auto& current_scene = scene;
-    // auto & current_scene = platform_scene;
+    current_scene = &scene;
 
     // Main Loop
     constexpr auto millis_per_update = 16ms;  // about 60FPS
@@ -106,13 +107,13 @@ int main(int argc, char* argv[])
         }
 
         while (lag >= millis_per_update) {
-            current_scene.update();
+            current_scene->update();
             lag -= millis_per_update;
         }
 
         // Render
         ren.clear();
-        current_scene.draw(ren);
+        current_scene->draw(ren);
         ren.present();
     }
 
