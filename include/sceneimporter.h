@@ -6,7 +6,7 @@
 #include <map>
 #include <vector>
 
-#include "../scene.h"
+#include "../platforming_scene.h"
 
 namespace sdlxx {
 
@@ -22,7 +22,7 @@ namespace sdlxx {
         SceneImporter(Sdl_renderer & ren);
         ~SceneImporter();
 
-        Scene load(std::string path);
+        Platforming_scene load(std::string path);
     private:
         Sdl_renderer & renderer;
         std::map<Symbol, std::vector<SDL_Rect>> objects;

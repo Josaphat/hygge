@@ -2,6 +2,7 @@
 #include "include/sdlxx.h"
 #include "platform.h"
 #include "player.h"
+#include "platforming_scene.h"
 
 #include <iostream>
 #include <fstream>
@@ -15,8 +16,8 @@ SceneImporter::SceneImporter(Sdl_renderer & ren) : renderer(ren) {
 SceneImporter::~SceneImporter() {
 }
 
-Scene SceneImporter::load(string path) {
-    Scene scene;
+Platforming_scene SceneImporter::load(string path) {
+    Platforming_scene scene{ renderer };
     // read in BMP file or some **** like that
     ifstream file(path);
     if (file.is_open()) {
