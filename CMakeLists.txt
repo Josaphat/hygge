@@ -17,6 +17,7 @@ else()
     platforming_scene.cpp
     )
 
-  target_link_libraries(hygge PRIVATE SDL2)
+  target_link_libraries(hygge PRIVATE ${SDL2_LIBRARY})
+  target_include_directories(hygge SYSTEM PUBLIC ${SDL2_INCLUDE_DIR})
   target_compile_definitions(hygge PUBLIC -DNONWINDOWS_BUILD)
 endif()
