@@ -1,5 +1,6 @@
 #include <string>
 #include <thread>
+#include <cmath>
 #include <iostream>
 #include "include/sdlxx.h"
 

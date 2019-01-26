@@ -1,7 +1,12 @@
 #ifndef SDLXX_SDLXX_H
 #define SDLXX_SDLXX_H
 
+#ifdef NONWINDOWS_BUILD
+#include <SDL2/SDL.h>
+#else
 #include <SDL.h>
+#endif
+
 #include <iostream>
 #include <stdexcept>
 
