@@ -9,7 +9,7 @@ namespace sdlxx {
 
 // RAII class so you can't forget to call SDL_Quit
 class Sdl_system {
-   public:
+public:
     Sdl_system(decltype(SDL_INIT_VIDEO) flags)
     {
         const auto init_result = SDL_Init(flags);
@@ -22,7 +22,7 @@ class Sdl_system {
 };
 
 class Sdl_window {
-   public:
+public:
     Sdl_window(const char* title, int x, int y, int w, int h,
                std::uint32_t flags)
         : window_{SDL_CreateWindow(title, x, y, w, h, flags)}
@@ -37,12 +37,12 @@ class Sdl_window {
     // Allow an Sdl_window to be implicitly converted to SDL_Window*
     operator SDL_Window*() { return window_; }
 
-   private:
+private:
     SDL_Window* window_;
 };
 
 class Sdl_renderer {
-   public:
+public:
     Sdl_renderer(Sdl_window& window, int index, std::uint32_t flags)
         : renderer_{SDL_CreateRenderer(window, index, flags)}
     {
@@ -53,10 +53,12 @@ class Sdl_renderer {
     }
     ~Sdl_renderer() { SDL_DestroyRenderer(renderer_); }
 
-    void clear() {
+    void clear()
+    {
         SDL_SetRenderDrawColor(renderer_, 0, 0, 0, SDL_ALPHA_OPAQUE);
 
-        SDL_RenderClear(renderer_); }
+        SDL_RenderClear(renderer_);
+    }
 
     /// Copies the given texture into the renderer at destination coordinates
     /// given by \p x and \p y, and scaled to width \p w and height \p h.
@@ -89,22 +91,26 @@ class Sdl_renderer {
 
     void present() { SDL_RenderPresent(renderer_); }
 
-    void fill_rect(int x, int y, int w, int h, int color_r, int color_g, int color_b)
+    void fill_rect(int x, int y, int w, int h, int color_r, int color_g,
+                   int color_b)
     {
-        SDL_SetRenderDrawColor(renderer_, color_r, color_g, color_b, SDL_ALPHA_OPAQUE);
+        SDL_SetRenderDrawColor(renderer_, color_r, color_g, color_b,
+                               SDL_ALPHA_OPAQUE);
         SDL_Rect rect;
-        rect.x =x;
+        rect.x = x;
         rect.y = y;
         rect.w = w;
         rect.h = h;
         SDL_RenderFillRect(renderer_, &rect);
     }
 
-    void draw_rect(int x, int y, int w, int h, int color_r, int color_g, int color_b)
+    void draw_rect(int x, int y, int w, int h, int color_r, int color_g,
+                   int color_b)
     {
-        uint8_t r,g,b,a;
+        uint8_t r, g, b, a;
         SDL_GetRenderDrawColor(renderer_, &r, &g, &b, &a);
-        SDL_SetRenderDrawColor(renderer_, color_r, color_g, color_b, SDL_ALPHA_OPAQUE);
+        SDL_SetRenderDrawColor(renderer_, color_r, color_g, color_b,
+                               SDL_ALPHA_OPAQUE);
         SDL_Rect rect;
         rect.x = x;
         rect.y = y;
@@ -116,12 +122,12 @@ class Sdl_renderer {
 
     operator SDL_Renderer*() { return renderer_; }
 
-   private:
+private:
     SDL_Renderer* renderer_;
 };
 
 class Sdl_surface {
-   public:
+public:
     ~Sdl_surface()
     {
         if (surface_ != nullptr) { SDL_FreeSurface(surface_); }
@@ -140,7 +146,7 @@ class Sdl_surface {
         return {SDL_LoadBMP(path.c_str())};
     }
 
-   private:
+private:
     Sdl_surface(SDL_Surface* surf) : surface_{surf}
     {
         if (surface_ == nullptr) {
@@ -153,7 +159,7 @@ class Sdl_surface {
 };
 
 class Sdl_texture {
-   public:
+public:
     Sdl_texture(Sdl_renderer& renderer, Sdl_surface& surface)
         : texture_{SDL_CreateTextureFromSurface(renderer, surface)}
     {
@@ -178,7 +184,7 @@ class Sdl_texture {
 
     operator SDL_Texture*() { return texture_; }
 
-   private:
+private:
     SDL_Texture* texture_;
 };
 
