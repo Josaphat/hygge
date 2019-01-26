@@ -13,3 +13,9 @@ void Scene::draw(sdlxx::Sdl_renderer & renderer)
         object->draw(renderer);
     }
 }
+
+void Scene::addObject(std::unique_ptr<Game_object> object)
+{
+    scene_objects.emplace_back(std::move(object));
+}
+

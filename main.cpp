@@ -30,16 +30,17 @@ int main(int argc, char* argv[])
     auto ren = Sdl_renderer(
         window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 
+    SceneImporter importer;
+    Scene scene = importer.load("scene1.txt"s);
     Platforming_scene platform_scene{ren};
-    auto & current_scene = platform_scene;
+    auto & current_scene = scene;
+    //auto & current_scene = platform_scene;
 
     // Main Loop
     constexpr auto millis_per_update = 16ms;  // about 60FPS
     auto previous = std::chrono::high_resolution_clock::now();
     auto lag = previous - previous;
 
-    SceneImporter importer;
-    importer.load("scene1.bmp"s);
     bool quit{false};
     while (!quit) {
         auto current = std::chrono::high_resolution_clock::now();
