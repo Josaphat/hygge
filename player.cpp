@@ -56,7 +56,6 @@ void Player::collide(Game_object & rhs)
 {
     if (velocity.y > 0) {
         // We're falling
-        auto overlap_x = (position.x + height) - rhs.position.x;
         auto overlap_y = (position.y + height) - rhs.position.y;
         if (overlap_y > 0) {
             // We're starting to go through a platform.
