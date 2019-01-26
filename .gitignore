@@ -29,3 +29,7 @@
 *.exe
 *.out
 *.app
+
+/Debug
+*.vcxproj
+*.vcxproj.*
