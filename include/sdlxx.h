@@ -58,7 +58,10 @@ class Sdl_renderer {
     }
     ~Sdl_renderer() { SDL_DestroyRenderer(renderer_); }
 
-    void clear() { SDL_RenderClear(renderer_); }
+    void clear() {
+        SDL_SetRenderDrawColor(renderer_, 0, 0, 0, SDL_ALPHA_OPAQUE);
+
+        SDL_RenderClear(renderer_); }
 
     /// Copies the given texture into the renderer at destination coordinates
     /// given by \p x and \p y, and scaled to width \p w and height \p h.
@@ -90,6 +93,17 @@ class Sdl_renderer {
     }
 
     void present() { SDL_RenderPresent(renderer_); }
+
+    void fill_rect(int x, int y, int w, int h, int color_r, int color_g, int color_b)
+    {
+        SDL_SetRenderDrawColor(renderer_, color_r, color_g, color_b, SDL_ALPHA_OPAQUE);
+        SDL_Rect rect;
+        rect.x =x;
+        rect.y = y;
+        rect.w = w;
+        rect.h = h;
+        SDL_RenderFillRect(renderer_, &rect);
+    }
 
     operator SDL_Renderer*() { return renderer_; }
 
