@@ -105,9 +105,7 @@ int main(int argc, char* argv[])
         }
 
         while (lag >= millis_per_update) {
-            // Update
             current_scene.update();
-
             lag -= millis_per_update;
         }
 
