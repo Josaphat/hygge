@@ -2,8 +2,9 @@
 #include "screen_config.h"
 #include "input_map.h"
 
-Minion::Minion()
+Minion::Minion(sdlxx::Sdl_renderer & renderer)
     : Game_object{50, 50, {100, static_cast<double>(window_height - 75)}, {0,0}}
+    , texture{"resources/minion.bmp", renderer}
 {
 }
 
@@ -27,8 +28,8 @@ void Minion::update()
 
 void Minion::draw(sdlxx::Sdl_renderer & renderer)
 {
-    renderer.fill_rect(position.x, position.y, width, height,
-                       0, 0, 255);
+    renderer.draw_rect(position.x, position.y, width, height, 0, 0, 255);
+    renderer.copy(texture, int(position.x), int(position.y));
 }
 
 void Minion::collide(Game_object & rhs)

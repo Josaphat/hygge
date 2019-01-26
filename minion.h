@@ -6,7 +6,7 @@
 
 class Minion : public Game_object {
 public:
-    Minion();
+    Minion(sdlxx::Sdl_renderer & renderer);
     void update() override;
     void draw(sdlxx::Sdl_renderer & renderer) override;
     void collide(Game_object & rhs) override;
@@ -17,6 +17,8 @@ private:
     const int gravity = 2;
 
     bool move_right = true;
+
+    sdlxx::Sdl_texture texture;
 };
 
 #endif
