@@ -9,7 +9,12 @@ if (WIN32)
   find_package(SDL2 REQUIRED)
 else()
   find_package(SDL2 REQUIRED)
-  add_executable(hygge main.cpp)
+  add_executable(hygge main.cpp
+
+    asteroid_scene.cpp
+    ship.cpp
+
+    scene.cpp)
   target_link_libraries(hygge PRIVATE SDL2)
   target_compile_definitions(hygge PUBLIC -DNONWINDOWS_BUILD)
 endif()
