@@ -12,7 +12,7 @@ class Vec2 {
   double y;
 };
 
-int main()
+int main(int argc, char* argv[])
 {
   using namespace sdlxx;
   const auto sdl_sys = Sdl_system(SDL_INIT_VIDEO);
@@ -155,8 +155,8 @@ int main()
         velocity.y += del_v.y;
 
 		++frame;
-		if (frame >= SHIP_FRAMES) {
-			frame = 3;
+		if ((frame / 4) >= SHIP_FRAMES) {
+			frame = 12;
 		}
       }
 
@@ -178,7 +178,7 @@ int main()
 
     // Render
     ren.clear();
-    ren.copy(tex, int(x), int(y), &clips[frame], heading_deg);
+    ren.copy(tex, int(x), int(y), &clips[frame / 4], heading_deg);
     ren.present();
     std::fflush(stdout);
   }

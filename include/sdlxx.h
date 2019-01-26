@@ -2,7 +2,6 @@
 #define SDLXX_SDLXX_H
 
 #include <SDL.h>
-#undef main
 #include <iostream>
 #include <stdexcept>
 
