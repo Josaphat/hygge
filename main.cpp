@@ -40,9 +40,9 @@ int main(int argc, char* argv[])
   clips[ 2 ].h = 63;
 
   clips[ 3 ].x = 63;
-  clips[ 3 ].y =   63;
+  clips[ 3 ].y =   64;
   clips[ 3 ].w =  63;
-  clips[ 3 ].h = 63;
+  clips[ 3 ].h = 62;
 
   // The Window is the operating system thing that contains our drawing space.
   // It's the thing with the X in the corner and the frame thing around it. You
