@@ -3,7 +3,7 @@
 #include "input_map.h"
 
 Player::Player()
-    : position{0, static_cast<double>(window_height - height)}
+    : Game_object{75, 50, {0, static_cast<double>(window_height - 75)}, {0,0}}
 {
 }
 
@@ -31,11 +31,12 @@ void Player::update()
         jump_frame = 0;
     }
 
+    velocity.y += gravity;
+    position.y += velocity.y;
+
     if (jumping) {
         ++jump_frame;
 
-        velocity.y += gravity;
-        position.y += velocity.y;
         if (position.y >= window_height - height) {
             position.y = window_height - height;
             jumping = false;
@@ -48,4 +49,22 @@ void Player::draw(sdlxx::Sdl_renderer & renderer)
 {
     renderer.fill_rect(position.x, position.y, width, height,
                        0, 255, 0);
+}
+
+void Player::collide(Game_object & rhs)
+{
+    if (velocity.y > 0) {
+        // We're falling
+        auto overlap_y = (position.y + height) - rhs.position.y;
+        if (overlap_y > 0) {
+            // We're starting to go through a platform.
+            // Move the player back up so they're not through the platform.
+            position.y -= overlap_y;
+
+            // They're no longer jumping
+            jumping = false;
+            double_jump = false;
+            velocity.y = 0;
+        }
+    }
 }

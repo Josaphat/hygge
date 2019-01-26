@@ -6,7 +6,6 @@
 #include <thread>
 #include <vector>
 
-
 int show_image()
 {
 	std::cout << "Hello World\n";

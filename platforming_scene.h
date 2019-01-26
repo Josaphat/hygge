@@ -6,5 +6,7 @@
 class Platforming_scene : public Scene {
 public:
     Platforming_scene(sdlxx::Sdl_renderer & renderer);
+    void update() override;
 };
+
 #endif

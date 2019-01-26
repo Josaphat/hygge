@@ -8,8 +8,8 @@
 
 class Scene {
 public:
-    void update();
-    void draw(sdlxx::Sdl_renderer & renderer);
+    virtual void update();
+    virtual void draw(sdlxx::Sdl_renderer & renderer);
 
 protected:
     std::vector<std::unique_ptr<Game_object>> scene_objects;

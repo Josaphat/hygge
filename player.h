@@ -9,15 +9,9 @@ public:
     Player();
     void update() override;
     void draw(sdlxx::Sdl_renderer & renderer) override;
-
-public:
-    const int width = 50;
-    const int height = 75;
-    Vec2 position {0, 0};
-    Vec2 velocity {0, 0};
+    void collide(Game_object & rhs) override;
 
 private:
-
     const int move_speed = 5;
     const int air_move_speed = 5;
     const int gravity = 2;

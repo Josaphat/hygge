@@ -6,7 +6,9 @@
 class Platform : public Game_object {
 public:
     Platform(int x, int y, int width, int height)
-        : x{x}, y{y}, width{width}, height{height}
+        : Game_object{height, width,
+                      {static_cast<double>(x), static_cast<double>(y)},
+                      {0, 0}}
     {
     }
 
@@ -16,14 +18,8 @@ public:
 
     void draw(sdlxx::Sdl_renderer & renderer) override
     {
-        renderer.fill_rect(x, y, width, height, 255, 0, 0);
+        renderer.fill_rect(position.x, position.y, width, height, 255, 0, 0);
     }
-
-private:
-    int x;
-    int y;
-    int width;
-    int height;
 };
 
 #endif
