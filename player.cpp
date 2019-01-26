@@ -1,23 +1,22 @@
 #include "player.h"
-#include "screen_config.h"
 #include "input_map.h"
+#include "screen_config.h"
 
-Player::Player(sdlxx::Sdl_renderer & renderer)
-    : Game_object{/*height*/75, /*width*/50, {0, static_cast<double>(window_height - 75)}, {0,0}}
-    , texture {"resources/hyggens.bmp", renderer}
+Player::Player(sdlxx::Sdl_renderer& renderer)
+    : Game_object{/*height*/ 75,
+                  /*width*/ 50,
+                  {0, static_cast<double>(window_height - 75)},
+                  {0, 0}},
+      texture{"resources/hyggens.bmp", renderer}
 {
 }
 
 void Player::update()
 {
-    if (input_state.move_left) {
-        position.x -= move_speed;
-    }
-    if (input_state.move_right) {
-        position.x += move_speed;
-    }
+    if (input_state.move_left) { position.x -= move_speed; }
+    if (input_state.move_right) { position.x += move_speed; }
 
-    if (input_state.jump && !jumping){
+    if (input_state.jump && !jumping) {
         jumping = true;
         velocity.y = -30;
         jump_frame = 0;
@@ -46,13 +45,13 @@ void Player::update()
     }
 }
 
-void Player::draw(sdlxx::Sdl_renderer & renderer)
+void Player::draw(sdlxx::Sdl_renderer& renderer)
 {
     renderer.draw_rect(position.x, position.y, width, height, 0, 255, 0);
     renderer.copy(texture, int(position.x), int(position.y));
 }
 
-void Player::collide(Game_object & rhs)
+void Player::collide(Game_object& rhs)
 {
     if (velocity.y > 0 && rhs.can_be_destroyed == false) {
         // We're falling
@@ -68,7 +67,7 @@ void Player::collide(Game_object & rhs)
             velocity.y = 0;
         }
     }
-	else {
-		rhs.set_to_destroy();
-	}
+    else {
+        rhs.set_to_destroy();
+    }
 }

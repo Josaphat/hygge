@@ -6,11 +6,11 @@
 
 class Minion : public Game_object {
 public:
-	Minion(sdlxx::Sdl_renderer & renderer);
-    Minion(sdlxx::Sdl_renderer & renderer, int x_pos, int ypos);
+    Minion(sdlxx::Sdl_renderer& renderer);
+    Minion(sdlxx::Sdl_renderer& renderer, int x_pos, int ypos);
     void update() override;
-    void draw(sdlxx::Sdl_renderer & renderer) override;
-    void collide(Game_object & rhs) override;
+    void draw(sdlxx::Sdl_renderer& renderer) override;
+    void collide(Game_object& rhs) override;
 
 private:
     const int move_speed = 5;

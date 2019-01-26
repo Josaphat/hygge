@@ -1,23 +1,22 @@
 #include "include/sceneimporter.h"
 #include "include/sdlxx.h"
 #include "platform.h"
-#include "player.h"
 #include "platforming_scene.h"
+#include "player.h"
 
-#include <iostream>
 #include <fstream>
+#include <iostream>
 
 using namespace sdlxx;
 using namespace std;
 
-SceneImporter::SceneImporter(Sdl_renderer & ren) : renderer(ren) {
-}
+SceneImporter::SceneImporter(Sdl_renderer& ren) : renderer(ren) {}
 
-SceneImporter::~SceneImporter() {
-}
+SceneImporter::~SceneImporter() {}
 
-Platforming_scene SceneImporter::load(string path) {
-    Platforming_scene scene{ renderer };
+Platforming_scene SceneImporter::load(string path)
+{
+    Platforming_scene scene{renderer};
     // read in BMP file or some **** like that
     ifstream file(path);
     if (file.is_open()) {
@@ -75,7 +74,8 @@ Platforming_scene SceneImporter::load(string path) {
                     }
                 }
                 if (!didUpdate) {
-                    // create new object of pixel's color, with bounds including the pixel
+                    // create new object of pixel's color, with bounds including
+                    // the pixel
                     SDL_Rect newRect;
                     newRect.x = x;
                     newRect.y = y;
@@ -90,24 +90,26 @@ Platforming_scene SceneImporter::load(string path) {
             Symbol sym = it->first;
             std::vector<SDL_Rect> vec = it->second;
             for (SDL_Rect rect : vec) {
-                printf("%cRect: x%d y%d w%d h%d\n",
-                    sym, rect.x, rect.y, rect.w, rect.h);
+                printf("%cRect: x%d y%d w%d h%d\n", char(sym), rect.x, rect.y,
+                       rect.w, rect.h);
                 rect.x *= 10;
                 rect.y *= 10;
                 rect.w *= 10;
                 rect.h *= 10;
                 switch (sym) {
-                case Symbol::G:
-                    scene.addObject(std::make_unique<Player>(renderer));
-                    break;
-                case Symbol::R:
-                    scene.addObject(std::make_unique<Platform>(rect.x, rect.y, rect.w, rect.h));
-                    break;
-                case Symbol::X:
-                    scene.addObject(std::make_unique<Platform>(rect.x, rect.y, rect.w, rect.h));
-                    break;
-                default:
-                    break;
+                    case Symbol::G:
+                        scene.addObject(std::make_unique<Player>(renderer));
+                        break;
+                    case Symbol::R:
+                        scene.addObject(std::make_unique<Platform>(
+                            rect.x, rect.y, rect.w, rect.h));
+                        break;
+                    case Symbol::X:
+                        scene.addObject(std::make_unique<Platform>(
+                            rect.x, rect.y, rect.w, rect.h));
+                        break;
+                    default:
+                        break;
                 }
             }
         }

@@ -6,10 +6,10 @@
 
 class Player : public Game_object {
 public:
-    Player(sdlxx::Sdl_renderer & renderer);
+    Player(sdlxx::Sdl_renderer& renderer);
     void update() override;
-    void draw(sdlxx::Sdl_renderer & renderer) override;
-    void collide(Game_object & rhs) override;
+    void draw(sdlxx::Sdl_renderer& renderer) override;
+    void collide(Game_object& rhs) override;
 
 private:
     const int move_speed = 5;
