@@ -3,6 +3,7 @@
 #include <string>
 #include <thread>
 #include "include/sdlxx.h"
+#include "include/sceneimporter.h"
 
 using namespace std::chrono_literals;
 using namespace std::string_literals;
@@ -75,7 +76,8 @@ int main(int argc, char* argv[])
     auto lag = previous - previous;
 
     int frame = 0;
-
+    SceneImporter imp;
+    imp.load("scene1.bmp"s);
     bool quit{false};
     while (!quit) {
         auto current = std::chrono::high_resolution_clock::now();
