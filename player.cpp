@@ -2,8 +2,9 @@
 #include "screen_config.h"
 #include "input_map.h"
 
-Player::Player()
-    : Game_object{75, 50, {0, static_cast<double>(window_height - 75)}, {0,0}}
+Player::Player(sdlxx::Sdl_renderer & renderer)
+    : Game_object{/*height*/75, /*width*/50, {0, static_cast<double>(window_height - 75)}, {0,0}}
+    , texture {"resources/hyggens.bmp", renderer}
 {
 }
 
@@ -47,13 +48,13 @@ void Player::update()
 
 void Player::draw(sdlxx::Sdl_renderer & renderer)
 {
-    renderer.fill_rect(position.x, position.y, width, height,
-                       0, 255, 0);
+    renderer.draw_rect(position.x, position.y, width, height, 0, 255, 0);
+    renderer.copy(texture, int(position.x), int(position.y));
 }
 
 void Player::collide(Game_object & rhs)
 {
-    if (velocity.y > 0) {
+    if (velocity.y > 0 && rhs.can_be_destroyed == false) {
         // We're falling
         auto overlap_y = (position.y + height) - rhs.position.y;
         if (overlap_y > 0) {
@@ -67,4 +68,7 @@ void Player::collide(Game_object & rhs)
             velocity.y = 0;
         }
     }
+	else {
+		rhs.set_to_destroy();
+	}
 }

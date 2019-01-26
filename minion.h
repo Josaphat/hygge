@@ -1,12 +1,13 @@
-#ifndef HYGGE_PLAYER_H
-#define HYGGE_PLAYER_H
+#ifndef HYGGE_MINION_H
+#define HYGGE_MINION_H
 
 #include "game_object.h"
 #include "vec2.h"
 
-class Player : public Game_object {
+class Minion : public Game_object {
 public:
-    Player(sdlxx::Sdl_renderer & renderer);
+	Minion(sdlxx::Sdl_renderer & renderer);
+    Minion(sdlxx::Sdl_renderer & renderer, int x_pos, int ypos);
     void update() override;
     void draw(sdlxx::Sdl_renderer & renderer) override;
     void collide(Game_object & rhs) override;
@@ -16,10 +17,7 @@ private:
     const int air_move_speed = 5;
     const int gravity = 2;
 
-    bool jumping = false;
-    bool ready_for_double_jump = false;
-    bool double_jump = false;
-    int jump_frame = 0;
+    bool move_right = true;
 
     sdlxx::Sdl_texture texture;
 };
