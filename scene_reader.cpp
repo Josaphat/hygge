@@ -7,9 +7,9 @@
 #include <vector>
 
 
-int show_image()
+int main(int argc, char* argv[])
 {
-	std::cout << "Hello World\n";
+	//std::cout << "Hello World\n";
 
 	std::ifstream scene1;
 	scene1.open("scene1.bmp", std::ios::binary | std::ios::ate);
@@ -20,35 +20,55 @@ int show_image()
 	scene1.read(buffer.data(), length);
 	scene1.close();
 
-	for (unsigned int i = 0; i < 54; i++) {
-		std::cout << +(uint8_t)buffer.data()[i];
-		std::cout << " ";
+
+	std::ofstream out_scene1;
+	out_scene1.open("scene1.txt");
+	//for (unsigned int i = 0; i < 54; i++) {
+	//	std::cout << +(uint8_t)buffer.data()[i];
+	//	std::cout << " ";
+	//}
+	//std::cout << "\n";
+	//std::cout << "\n";
+	//int row_padded = (128 * 3 + 3) & (~3);
+	//std::cout << "row padding = " << row_padded;
+	//std::cout << std::endl;
+
+	unsigned int offset = 54;
+	for (unsigned int row = 0; row < 72; row++) {
+		for (unsigned int col = 0; col < 128*3; col += 3) {
+
+			if (col == 0 && row!=0) {
+				std::cout << "\n";
+				out_scene1 << "\n";
+			}
+
+			auto r = (uint8_t)buffer.data()[offset + ((71 - row) * (128 * 3)) + (col) + 2];
+			auto g = (uint8_t)buffer.data()[offset + ((71 - row) * (128 * 3)) + (col) + 1];
+			auto b = (uint8_t)buffer.data()[offset + ((71 - row) * (128 * 3)) + (col) + 0];
+			if (r == 0 && b == 0 && g == 0) {
+				std::cout << "X";
+				out_scene1 << "X";
+			}
+			else if (r == 255 && b == 255 && g == 255) {
+				std::cout << ".";
+				out_scene1 << ".";
+			}
+			else if (r == 32 && b == 64 && g == 192) {
+				std::cout << "G";
+				out_scene1 << "G";
+			}
+			else if (r == 224 && b == 64 && g == 32) {
+				std::cout << "R";
+				out_scene1 << "R";
+			}
+			else {
+				std::cout << "val: " << +r << " " << +b << " " << +g;
+				std::cout << "?";
+				out_scene1 << "?";
+			}
+		}
 	}
-	std::cout << "\n";
-	std::cout << "\n";
-	int row_padded = (128 * 3 + 3) & (~3);
-	std::cout << "row padding = " << row_padded;
-	std::cout << std::endl;
-
-	for (unsigned int i = 54; i < buffer.size(); i+=3) {
-		if ((i-54) % (128 * 3) == 0) {
-			std::cout << "\n";
-		}
-
-		auto r = (uint8_t)buffer.data()[i+2];
-		auto g = (uint8_t)buffer.data()[i+1];
-		auto b = (uint8_t)buffer.data()[i+0];
-		if (r == 0 && b == 0 && g == 0) {
-			std::cout << " ";
-		}
-		else if (r == 255 && b == 255 && g == 255) {
-			std::cout << "x";
-		}
-		else {
-			std::cout << "^";
-		}
-
-	}
+	out_scene1.close();
 
     return 0;
 }
