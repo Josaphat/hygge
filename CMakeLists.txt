@@ -12,9 +12,9 @@ else()
   add_executable(hygge main.cpp
     scene.cpp
     player.cpp
+    sceneimporter.cpp
 
     platforming_scene.cpp
-
     )
 
   target_link_libraries(hygge PRIVATE SDL2)
