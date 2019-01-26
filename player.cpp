@@ -54,7 +54,7 @@ void Player::draw(sdlxx::Sdl_renderer & renderer)
 
 void Player::collide(Game_object & rhs)
 {
-    if (velocity.y > 0) {
+    if (velocity.y > 0 && rhs.can_be_destroyed == false) {
         // We're falling
         auto overlap_y = (position.y + height) - rhs.position.y;
         if (overlap_y > 0) {
@@ -68,4 +68,7 @@ void Player::collide(Game_object & rhs)
             velocity.y = 0;
         }
     }
+	else {
+		rhs.set_to_destroy();
+	}
 }

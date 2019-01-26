@@ -7,8 +7,8 @@
 
 class Game_object {
 public:
-    Game_object(int height, int width, Vec2 position, Vec2 velocity)
-        : height{height}, width{width}, position{position}, velocity{velocity}
+    Game_object(int height, int width, Vec2 position, Vec2 velocity, bool can_be_destroyed = false)
+		: height{ height }, width{ width }, position{ position }, velocity{ velocity }, can_be_destroyed{can_be_destroyed}
     {
     }
 
@@ -29,10 +29,24 @@ public:
 
     virtual void collide(Game_object & other){}
 
+	void set_to_destroy()
+	{
+		if (can_be_destroyed) {
+			destroy = true;
+		}
+	}
+
+	bool should_be_destroyed()
+	{
+		return destroy;
+	}
+
+	const bool can_be_destroyed;
     const int height;
     const int width;
     Vec2 position;
     Vec2 velocity;
+	bool destroy = false;
 };
 
 #endif

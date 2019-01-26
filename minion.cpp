@@ -2,8 +2,13 @@
 #include "screen_config.h"
 #include "input_map.h"
 
+Minion::Minion(sdlxx::Sdl_renderer & renderer, int x_pos, int y_pos)
+	: Game_object{ 50, 50, {static_cast<double>(x_pos), static_cast<double>(y_pos)}, {0,0}, true }
+	, texture{ "resources/minion.bmp", renderer }
+{
+}
 Minion::Minion(sdlxx::Sdl_renderer & renderer)
-    : Game_object{50, 50, {100, static_cast<double>(window_height - 75)}, {0,0}}
+    : Game_object{50, 50, {500, static_cast<double>(window_height - 75)}, {0,0}, true}
     , texture{"resources/minion.bmp", renderer}
 {
 }
@@ -34,7 +39,7 @@ void Minion::draw(sdlxx::Sdl_renderer & renderer)
 
 void Minion::collide(Game_object & rhs)
 {
-    if (velocity.y > 0) {
+    if (rhs.can_be_destroyed == false && velocity.y > 0) {
         // We're falling
         auto overlap_y = (position.y + height) - rhs.position.y;
         if (overlap_y > 0) {
