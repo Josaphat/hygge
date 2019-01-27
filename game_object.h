@@ -57,6 +57,7 @@ public:
     bool isVillain = false;
     bool isPlatform = false;
     bool isPupper = false;
+    bool isGoal = false;
 };
 
 #endif
