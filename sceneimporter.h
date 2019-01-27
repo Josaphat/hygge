@@ -9,6 +9,7 @@
 #include <vector>
 #include "minion.h"
 #include "platform.h"
+#include "not_a_platform.h"
 #include "player.h"
 #include "pupper.h"
 
@@ -139,6 +140,15 @@ public:
                             scene.addObject(std::make_unique<Minion>(
                                 renderer, rect.x, rect.y));
                             break;
+						case Symbol::N:
+							scene.addObject(std::make_unique<Not_A_Platform>(
+								rect.x, rect.y, rect.w, rect.h));
+							break;
+						case Symbol::O:
+							scene.addObject(std::make_unique<Not_A_Platform>(
+								rect.x, rect.y, rect.w, rect.h));
+							break;
+
                         default:
                             break;
                     }
