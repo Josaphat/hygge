@@ -7,6 +7,11 @@ class Platforming_scene : public Scene {
 public:
     Platforming_scene(sdlxx::Sdl_renderer& renderer);
     void update() override;
+    void setNeedPups(bool doNeedPups) { needPups = doNeedPups; }
+private:
+    int pups{ 0 };
+    bool needPups{ false };
+    sdlxx::Sdl_renderer& _renderer;
 };
 
 #endif

@@ -40,7 +40,9 @@ int main(int argc, char* argv[])
     for (auto i = 0; i < 3; ++i) {
         scenes.emplace_back(importer.load("scenes/scene"s + std::to_string(i) + ".txt"s));
     }
+
     scenes.emplace_back(importer.load("scenes/sceneHouse.txt"));
+    (std::end(scenes)-1)->setNeedPups(true);
     current_scene = std::begin(scenes);
 
     // Main Loop

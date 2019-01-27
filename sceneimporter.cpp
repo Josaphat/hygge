@@ -6,6 +6,8 @@
 #include "player.h"
 #include "pupper.h"
 #include "minion.h"
+#include "moverpup.h"
+#include "score.h"
 
 #include <fstream>
 #include <iostream>
@@ -119,7 +121,14 @@ Platforming_scene SceneImporter::load(string path)
                             std::make_unique<Pupper>(renderer, rect.x, rect.y));
                         break;
                     case Symbol::M:
-                        scene.addObject(std::make_unique<Minion>(renderer, rect.x, rect.y));
+                        scene.addObject(
+                            std::make_unique<Minion>(renderer, rect.x, rect.y));
+                        break;
+                    case Symbol::P:
+                        for (int i = 0; i < Score::sharedInstance().get(); ++i) {
+                            scene.addObject(
+                                std::make_unique<MoverPup>(renderer, rect.x, rect.y));
+                        }
                         break;
 					case Symbol::N:
 						scene.addObject(std::make_unique<Not_A_Platform>(
