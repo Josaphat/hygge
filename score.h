@@ -43,7 +43,7 @@ public:
         }
     }
 private:
-    int score{ 10 };
+    int score{ 0 };
 };
 
 #endif
