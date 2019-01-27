@@ -10,6 +10,8 @@ public:
     void draw(sdlxx::Sdl_renderer& renderer) override;
     void collide(Game_object &rhs) override;
 
+    bool isHeld() { return held; }
+
 private:
     int frame = 0;
     sdlxx::Sdl_texture texture;
