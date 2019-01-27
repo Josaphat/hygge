@@ -15,6 +15,7 @@ Player::Player(sdlxx::Sdl_renderer& renderer)
 
 void Player::update()
 {
+
     if (input_state.move_left) {
 		velocity.x = -move_speed;
 	}
@@ -24,7 +25,7 @@ void Player::update()
 	if (!input_state.move_right && !input_state.move_left) {
 		velocity.x = 0;
 	}
-	position.x += velocity.x;
+	//position.x += velocity.x;
 
     if (input_state.jump && !jumping) {
         jumping = true;
@@ -42,7 +43,7 @@ void Player::update()
     }
 
     velocity.y += gravity;
-    position.y += velocity.y;
+    //position.y += velocity.y;
 
     if (jumping) {
         ++jump_frame;
@@ -57,27 +58,70 @@ void Player::update()
 
 void Player::draw(sdlxx::Sdl_renderer& renderer)
 {
+    position.x += velocity.x;
+    position.y += velocity.y;
     renderer.draw_rect(position.x, position.y, width, height, 0, 255, 0);
     renderer.copy(texture, int(position.x), int(position.y));
 }
 
 void Player::collide(Game_object& rhs)
 {
-    if (rhs.isPlatform && velocity.y > 0 && velocity.x == 0) {
-        // We're falling straight down
-        auto overlap_y = (position.y + height) - rhs.position.y;
-        if (overlap_y > 0) {
-            // We're starting to go through a platform.
-            // Move the player back up so they're not through the platform.
-            position.y -= overlap_y;
 
-            // They're no longer jumping
-            jumping = false;
-            double_jump = false;
-            velocity.y = 0;
-        }
-    }
-    else if (rhs.isVillain) {
+    if (rhs.isVillain) {
         rhs.set_to_destroy();
     }
+
+	// If we're moving left or right and we hit a barrier move back to the last position of the x coordinate
+	if (rhs.isPlatform && velocity.x > 0) {
+		// We're moving to the right
+		// Overlap into the object
+		auto overlap_x = (position.x + width + velocity.x) - rhs.position.x;
+		// Check if the leftmost border is already past the objects leftmost border
+		bool past_border;
+		if ((position.x - rhs.position.x) > 0) {
+			past_border = true;
+		}
+		else {
+			past_border = false;
+		}
+		if (overlap_x > 0 && past_border == false) {
+			velocity.x = 0;
+		}
+	}
+	else if (rhs.isPlatform && velocity.x < 0) {
+		// We're moving to the left
+		auto overlap_x = (position.x + velocity.x) - (rhs.position.x + rhs.width);
+		// Check if the rightmost border is already past the objects leftmost border
+		bool past_border;
+		if (((position.x + width) - (rhs.position.x + rhs.width)) < 0) {
+			past_border = true;
+		}
+		else {
+			past_border = false;
+		}
+		if (overlap_x < 0 && past_border == false) {
+            velocity.x = 0;
+		}
+	}
+
+	if (rhs.isPlatform && velocity.y > 0) {
+		// We're falling
+		auto overlap_y = (position.y + height + velocity.y) - rhs.position.y;
+		// Check if the topmost border is already past the objects topmost border
+		bool past_border;
+		if ((position.y - rhs.position.y) > 0) {
+			past_border = true;
+		}
+		else {
+			past_border = false;
+		}
+		if (overlap_y > 0 && past_border == false) {
+			// We're starting to go through a platform.
+
+			// They're no longer jumping
+			jumping = false;
+			double_jump = false;
+			velocity.y = 0;
+		}
+	}
 }

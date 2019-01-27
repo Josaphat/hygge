@@ -21,6 +21,9 @@ private:
     bool double_jump = false;
     int jump_frame = 0;
 
+	Vec2 last_velocity = { 0,0 };
+	Vec2 last_position;
+
     sdlxx::Sdl_texture texture;
 };
 
