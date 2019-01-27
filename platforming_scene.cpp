@@ -1,5 +1,6 @@
 #include "platforming_scene.h"
 #include "platform.h"
+#include "goal.h"
 #include "player.h"
 #include "pupper.h"
 #include "screen_config.h"
@@ -17,6 +18,7 @@ void Platforming_scene::update()
 {
     Player* player = nullptr;
     Pupper* pupper = nullptr;
+    Goal* mailbox = nullptr;
     if (player == nullptr) {
         for (auto& object : scene_objects) {
             if (object->isPlayer) {
@@ -24,6 +26,9 @@ void Platforming_scene::update()
             }
             if (object->isPupper) {
                 pupper = dynamic_cast<Pupper*>(object.get());
+            }
+            if (object->isGoal) {
+                mailbox = dynamic_cast<Goal*>(object.get());
             }
         }
     }
@@ -45,7 +50,9 @@ void Platforming_scene::update()
             ++iter;
     }
 
-    if (pupper->position.x < 0) {
-        current_scene = home.get();
+    if (player->collides_with(*mailbox)) {
+        if (pupper->isHeld()) {
+            current_scene = home.get();
+        }
     }
 }

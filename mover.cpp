@@ -47,14 +47,35 @@ void Mover::draw(sdlxx::Sdl_renderer& renderer)
 
 void Mover::collide(Game_object& rhs)
 {
-    if (rhs.can_be_destroyed == false && velocity.y > 0) {
+    if (velocity.y > gravity) {
+        printf("velocityy: %f\n", velocity.y);
+    }
+    if (rhs.isPlatform && velocity.y > 0) {
         // We're falling
-        auto overlap_y = (position.y + height) - rhs.position.y;
-        if (overlap_y > 0) {
-            // We're starting to go through a platform.
+        double overlap_y;
+        if (position.y <= rhs.position.y) {
+            overlap_y = (position.y + height) - rhs.position.y;
+
+        }
+        else {
+            overlap_y = (rhs.position.y + rhs.height) - position.y;
+
+        }
+        //bool overlap_x = ((position.x > rhs.position.x) && (position.x <= rhs.position.x + rhs.width))
+        //    || ((position.x + width > rhs.position.x) && (position.x + width <= rhs.position.x + rhs.width));
+        double overlap_x;
+        if (position.x < rhs.position.x) {
+            overlap_x = position.x + width - rhs.position.x;
+        }
+        else {
+            overlap_x = rhs.position.x + rhs.width - position.x;
+        }
+
+        if (overlap_y > 0 && overlap_x >= velocity.x) {
+            // We're starting to go through a platorm.
             // Move the player back up so they're not through the platform.
             position.y -= overlap_y;
-            velocity.y = 0;
+            velocity.y = -gravity;
         }
     }
 }

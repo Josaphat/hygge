@@ -1,4 +1,5 @@
 #include "tutorial_scene.h"
+#include "goal.h"
 #include "player.h"
 #include "pupper.h"
 #include "screen_config.h"
@@ -13,6 +14,7 @@ void Tutorial_scene::update()
 {
     Player* player = nullptr;
     Pupper* pupper = nullptr;
+    Goal * mailbox = nullptr;
     if (player == nullptr) {
         for (auto& object : scene_objects) {
             if (object->isPlayer) {
@@ -20,6 +22,9 @@ void Tutorial_scene::update()
             }
             if (object->isPupper) {
                 pupper = dynamic_cast<Pupper*>(object.get());
+            }
+            if (object->isGoal) {
+                mailbox = dynamic_cast<Goal*>(object.get());
             }
         }
     }
@@ -42,9 +47,11 @@ void Tutorial_scene::update()
         }
     }
 
-    // Move home
-    if (pupper->position.x > window_width) {
-        scene_objects.clear();
-        current_scene = home.get();
+    // If the player brings the pupper to the mailbox
+    if (player->collides_with(*mailbox) ) {
+        if (pupper->isHeld()) {
+            scene_objects.clear();
+            current_scene = home.get();
+        }
     }
 }

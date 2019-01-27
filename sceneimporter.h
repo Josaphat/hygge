@@ -7,9 +7,10 @@
 #include <map>
 #include <string>
 #include <vector>
+#include "goal.h"
 #include "minion.h"
-#include "platform.h"
 #include "not_a_platform.h"
+#include "platform.h"
 #include "player.h"
 #include "pupper.h"
 
@@ -18,15 +19,16 @@ namespace sdlxx {
 class SceneImporter {
 public:
     enum class Symbol : char {
-        Dot = '.',
-        X = 'X',
-        R = 'R',
-        G = 'G',
-        B = 'B',
-        M = 'M',
-        N = 'N',
-        O = 'O',
-        P = 'P',
+        Dot = '.',  // Nothing
+        X = 'X',    // Platform
+        R = 'R',    // Also platform
+        G = 'G',    // Player's starting point
+        B = 'B',    // Pupper
+        M = 'M',    // Minion
+        N = 'N',    // Decorator platform
+        O = 'O',    // Also decorator platform
+        P = 'P',    // Unused
+        END = '=',  // End Goal
     };
 
     SceneImporter(sdlxx::Sdl_renderer& ren) : renderer(ren) {}
@@ -140,14 +142,19 @@ public:
                             scene.addObject(std::make_unique<Minion>(
                                 renderer, rect.x, rect.y));
                             break;
-						case Symbol::N:
-							scene.addObject(std::make_unique<Not_A_Platform>(
-								rect.x, rect.y, rect.w, rect.h));
-							break;
-						case Symbol::O:
-							scene.addObject(std::make_unique<Not_A_Platform>(
-								rect.x, rect.y, rect.w, rect.h));
-							break;
+                        case Symbol::N:
+                            scene.addObject(std::make_unique<Not_A_Platform>(
+                                rect.x, rect.y, rect.w, rect.h));
+                            break;
+                        case Symbol::O:
+                            scene.addObject(std::make_unique<Not_A_Platform>(
+                                rect.x, rect.y, rect.w, rect.h));
+                            break;
+
+                        case Symbol::END:
+                            scene.addObject(std::make_unique<Goal>(
+                                renderer, rect.x, rect.y));
+                            break;
 
                         default:
                             break;
