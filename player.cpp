@@ -3,10 +3,10 @@
 #include "screen_config.h"
 #include "score.h"
 
-Player::Player(sdlxx::Sdl_renderer& renderer)
+Player::Player(sdlxx::Sdl_renderer& renderer, int x, int y)
     : Game_object{/*height*/ 75,
                   /*width*/ 50,
-                  {0, static_cast<double>(window_height - 75)},
+                  {static_cast<double>(x), static_cast<double>(y)},
                   {0, 0}},
       texture{"resources/hyggens.bmp", renderer}
 {
