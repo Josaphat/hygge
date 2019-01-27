@@ -14,8 +14,11 @@ else()
     player.cpp
     pupper.cpp
     minion.cpp
-    sceneimporter.cpp
+    mover.cpp
+    moverpup.cpp
 
+    tutorial_scene.cpp
+    home_scene.cpp
     platforming_scene.cpp
     )
 

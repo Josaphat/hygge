@@ -1,5 +1,4 @@
-#include "platforming_scene.h"
-#include "platform.h"
+#include "tutorial_scene.h"
 #include "player.h"
 #include "pupper.h"
 #include "screen_config.h"
@@ -8,12 +7,9 @@
 extern Scene * current_scene;
 extern std::unique_ptr<Home_scene> home;
 
-Platforming_scene::Platforming_scene(sdlxx::Sdl_renderer& renderer) : _renderer(renderer)
-{
+Tutorial_scene::Tutorial_scene(sdlxx::Sdl_renderer& /*renderer*/) {}
 
-}
-
-void Platforming_scene::update()
+void Tutorial_scene::update()
 {
     Player* player = nullptr;
     Pupper* pupper = nullptr;
@@ -38,14 +34,17 @@ void Platforming_scene::update()
             if ((**a).collides_with(**b)) { (**a).collide(**b); }
         }
     }
-    for (auto iter = scene_objects.begin(); iter != scene_objects.end();) {
-        if ((**iter).should_be_destroyed() == true)
-            iter = scene_objects.erase(iter);
-        else
-            ++iter;
+
+    for (auto it = scene_objects.begin(); it != scene_objects.end();) {
+        if ((**it).should_be_destroyed()) { it = scene_objects.erase(it); }
+        else {
+            ++it;
+        }
     }
 
-    if (pupper->position.x < 0) {
+    // Move home
+    if (pupper->position.x > window_width) {
+        scene_objects.clear();
         current_scene = home.get();
     }
 }
