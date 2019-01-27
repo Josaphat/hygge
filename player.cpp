@@ -15,8 +15,16 @@ Player::Player(sdlxx::Sdl_renderer& renderer)
 
 void Player::update()
 {
-    if (input_state.move_left) { position.x -= move_speed; }
-    if (input_state.move_right) { position.x += move_speed; }
+    if (input_state.move_left) {
+		velocity.x = -move_speed;
+	}
+    if (input_state.move_right) {
+		velocity.x = move_speed;
+	}
+	if (!input_state.move_right && !input_state.move_left) {
+		velocity.x = 0;
+	}
+	position.x += velocity.x;
 
     if (input_state.jump && !jumping) {
         jumping = true;
@@ -55,8 +63,8 @@ void Player::draw(sdlxx::Sdl_renderer& renderer)
 
 void Player::collide(Game_object& rhs)
 {
-    if (rhs.isPlatform && velocity.y > 0) {
-        // We're falling
+    if (rhs.isPlatform && velocity.y > 0 && velocity.x == 0) {
+        // We're falling straight down
         auto overlap_y = (position.y + height) - rhs.position.y;
         if (overlap_y > 0) {
             // We're starting to go through a platform.
