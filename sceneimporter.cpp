@@ -103,7 +103,9 @@ Platforming_scene SceneImporter::load(string path)
                 rect.h *= 10;
                 switch (sym) {
                     case Symbol::G:
-                        scene.addObject(std::make_unique<Player>(renderer), 0);
+                        scene.addObject(
+                            std::make_unique<Player>(renderer, rect.x, rect.y),
+                            0);
                         break;
                     case Symbol::R:
                         scene.addObject(std::make_unique<Platform>(

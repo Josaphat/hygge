@@ -34,6 +34,8 @@ int main(int argc, char* argv[])
     auto ren = Sdl_renderer(
         window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 
+    Sdl_texture background{"resources/Snow_covered_pine.bmp", ren};
+
     SceneImporter importer{ren};
     for (auto i = 0; i < 3; ++i) {
         scenes.emplace_back(importer.load("scenes/scene"s + std::to_string(i) + ".txt"s));
@@ -119,6 +121,7 @@ int main(int argc, char* argv[])
 
         // Render
         ren.clear();
+        ren.copy(background, 0, 0);
         current_scene->draw(ren);
         ren.present();
     }
