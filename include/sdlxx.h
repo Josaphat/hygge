@@ -191,7 +191,13 @@ public:
         }
     }
 
-    ~Sdl_texture() { SDL_DestroyTexture(texture_); }
+    Sdl_texture(Sdl_texture && rhs)
+        : texture_{rhs.texture_}
+    {
+        rhs.texture_ = nullptr;
+    }
+
+    ~Sdl_texture() { if (texture_ != nullptr) {SDL_DestroyTexture(texture_);} }
 
     operator SDL_Texture*() { return texture_; }
 

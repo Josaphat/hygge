@@ -1,5 +1,6 @@
 #include "tutorial_scene.h"
 #include "goal.h"
+#include "score.h"
 #include "player.h"
 #include "pupper.h"
 #include "screen_config.h"
@@ -8,7 +9,12 @@
 extern Scene * current_scene;
 extern std::unique_ptr<Home_scene> home;
 
-Tutorial_scene::Tutorial_scene(sdlxx::Sdl_renderer& /*renderer*/) {}
+Tutorial_scene::Tutorial_scene(sdlxx::Sdl_renderer& renderer)
+    // : _renderer{renderer}
+    : _overlay{"resources/overlay.bmp", renderer}
+{
+    std::cout << "tutorial constructed!";
+}
 
 void Tutorial_scene::update()
 {
@@ -55,3 +61,15 @@ void Tutorial_scene::update()
         }
     }
 }
+
+void Tutorial_scene::draw(sdlxx::Sdl_renderer& renderer)
+{
+    for (auto& object : scene_objects) { object->draw(renderer); }
+
+    Score::sharedInstance().draw(renderer);
+    std::cout << "Drawing the overlay\n";
+
+    // sdlxx::Sdl_texture overlay{"resources/overlay.bmp", renderer};
+    renderer.copy(_overlay, 0, 0);
+}
+
