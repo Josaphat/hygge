@@ -3,14 +3,20 @@
 #include "platform.h"
 #include "player.h"
 #include "screen_config.h"
+#include "score.h"
+#include "moverpup.h"
 
-Platforming_scene::Platforming_scene(sdlxx::Sdl_renderer& renderer)
+Platforming_scene::Platforming_scene(sdlxx::Sdl_renderer& renderer) : _renderer(renderer)
 {
 
 }
 
 void Platforming_scene::update()
 {
+    if (needPups && pups < Score::sharedInstance().get()) {
+        addObject(std::make_unique<MoverPup>(_renderer, 50, 50));
+        ++pups;
+    }
     for (auto& object : scene_objects) { object->update(); }
 
     for (auto a = scene_objects.begin(); a < scene_objects.end(); ++a) {

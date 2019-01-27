@@ -8,7 +8,7 @@ Mover::Mover(sdlxx::Sdl_renderer& renderer, int height, int width, int x_pos, in
                   {static_cast<double>(x_pos), static_cast<double>(y_pos)},
                   {0, 0},
                   true},
-    texture{ "resources/minion.bmp", renderer }
+    texture{path, renderer }
 {
     isPlayer = false;
     isVillain = true;

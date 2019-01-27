@@ -12,9 +12,9 @@ public:
     void collide(Game_object& rhs) override;
 
 protected:
-    const int move_speed = 5;
-    const int air_move_speed = 5;
-    const int gravity = 2;
+    int move_speed = 5;
+    int air_move_speed = 5;
+    int gravity = 2;
 
     bool move_right = true;
 
