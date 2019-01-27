@@ -1,20 +1,21 @@
-#include "platforming_scene.h"
-#include "platform.h"
+#include "home_scene.h"
 #include "player.h"
 #include "pupper.h"
-#include "screen_config.h"
-#include "home_scene.h"
+#include "platforming_scene.h"
+#include "score.h"
+#include "moverpup.h"
 
 extern Scene * current_scene;
-extern std::unique_ptr<Home_scene> home;
+extern std::vector<Platforming_scene>::iterator platscene_iter;
 
-Platforming_scene::Platforming_scene(sdlxx::Sdl_renderer& renderer) : _renderer(renderer)
+Home_scene::Home_scene(sdlxx::Sdl_renderer& renderer) : renderer{renderer} {}
+
+void Home_scene::update()
 {
-
-}
-
-void Platforming_scene::update()
-{
+    if (pups < Score::sharedInstance().get()) {
+        addObject(std::make_unique<MoverPup>(renderer, 50, 50));
+        ++pups;
+    }
     Player* player = nullptr;
     Pupper* pupper = nullptr;
     if (player == nullptr) {
@@ -45,7 +46,9 @@ void Platforming_scene::update()
             ++iter;
     }
 
-    if (pupper->position.x < 0) {
-        current_scene = home.get();
+    if (player->position.x < -player->width) {
+        player->position.x = 10;
+        current_scene = &(*platscene_iter);
+        ++platscene_iter;
     }
 }
