@@ -33,7 +33,16 @@ void Mover::update()
 void Mover::draw(sdlxx::Sdl_renderer& renderer)
 {
     renderer.draw_rect(position.x, position.y, width, height, 0, 0, 255);
-    renderer.copy(texture, int(position.x), int(position.y));
+    SDL_Rect rect;
+    rect.x = position.x;
+    rect.y = position.y;
+    rect.w = width;
+    rect.h = height;
+    SDL_RendererFlip flip {SDL_FLIP_NONE};
+    if (move_right) {
+        flip = SDL_FLIP_HORIZONTAL;
+    }
+    SDL_RenderCopyEx(renderer, texture, NULL, &rect, 0.0, NULL, flip);
 }
 
 void Mover::collide(Game_object& rhs)
