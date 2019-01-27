@@ -32,9 +32,7 @@ int main(int argc, char* argv[])
 
     SceneImporter importer{ren};
     Platforming_scene scene = importer.load("scene1.txt"s);
-    // Platforming_scene platform_scene{ren};
     auto& current_scene = scene;
-    // auto & current_scene = platform_scene;
 
     // Main Loop
     constexpr auto millis_per_update = 16ms;  // about 60FPS

@@ -1,6 +1,7 @@
 #include "player.h"
 #include "input_map.h"
 #include "screen_config.h"
+#include "score.h"
 
 Player::Player(sdlxx::Sdl_renderer& renderer)
     : Game_object{/*height*/ 75,
@@ -69,5 +70,6 @@ void Player::collide(Game_object& rhs)
     }
     else {
         rhs.set_to_destroy();
+        Score::sharedInstance().increment();
     }
 }

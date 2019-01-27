@@ -14,6 +14,7 @@ public:
 
 protected:
     std::vector<std::unique_ptr<Game_object>> scene_objects;
+
 };
 
 #endif
