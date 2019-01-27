@@ -7,6 +7,7 @@
 class MoverPup : public Mover {
 public:
     MoverPup(sdlxx::Sdl_renderer& renderer, int x_pos, int ypos);
+    void update() override;
 };
 
 #endif
