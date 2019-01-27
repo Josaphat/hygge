@@ -9,8 +9,8 @@ using namespace sdlxx;
 class Fire : public Game_object {
 public:
     Fire(sdlxx::Sdl_renderer& renderer, int x, int y)
-        : Game_object{75,
-                      75,
+        : Game_object{120,
+                      120,
                       {static_cast<double>(x), static_cast<double>(y)},
                       {0, 0} }//,
         //texture{ "fire.bmp", renderer }
@@ -23,12 +23,12 @@ public:
 
     void draw(sdlxx::Sdl_renderer& renderer) override
     {
-        auto texture = Sdl_texture{ "fire.bmp", renderer };
+        auto texture = Sdl_texture{ "fireplace.bmp", renderer };
         SDL_Rect clip;
-        clip.x = (currentFrame / 4) * 291;
+        clip.x = (currentFrame / 4) * 560;
         clip.y = 0;
-        clip.h = 291;
-        clip.w = 291;
+        clip.h = 560;
+        clip.w = 550;
 
         SDL_Rect dest;
         dest.x = position.x;
