@@ -12,7 +12,7 @@ public:
 
     bool isHeld() { return held; }
 
-private:
+public:
     int frame = 0;
     sdlxx::Sdl_texture texture;
     bool held = false;

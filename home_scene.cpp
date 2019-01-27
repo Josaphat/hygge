@@ -5,6 +5,7 @@
 #include "moverpup.h"
 
 extern Scene * current_scene;
+extern std::vector<Platforming_scene> scenes;
 extern std::vector<Platforming_scene>::iterator platscene_iter;
 
 static double starting_position_x = 0;
@@ -75,6 +76,9 @@ void Home_scene::update()
         }
         current_scene = &(*platscene_iter);
         ++platscene_iter;
+        if (platscene_iter == scenes.end()) {
+            platscene_iter = scenes.begin();
+        }
 
         player->position.x = starting_position_x;
         player->position.y = starting_position_y;

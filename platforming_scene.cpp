@@ -28,6 +28,7 @@ void Platforming_scene::update()
             }
             if (object->isPupper) {
                 pupper = dynamic_cast<Pupper*>(object.get());
+                pup_spawn = pupper->position;
             }
             if (object->isGoal) { mailbox = dynamic_cast<Goal*>(object.get()); }
         }
@@ -56,10 +57,16 @@ void Platforming_scene::update()
         current_scene = you_died.get();
         player->position.x = player_spawn.x;
         player->position.y = player_spawn.y;
+        pupper->position = pup_spawn;
+        pupper->held = false;
     }
 
     if (player->collides_with(*mailbox)) {
         if (pupper->isHeld()) {
+            player->position.x = player_spawn.x;
+            player->position.y = player_spawn.y;
+            pupper->position = pup_spawn;
+            pupper->held = false;
             current_scene = home.get();
             Score::sharedInstance().increment();
         }

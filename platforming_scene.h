@@ -16,6 +16,7 @@ private:
     Pupper* pupper = nullptr;
     Goal* mailbox = nullptr;
     Vec2 player_spawn;
+    Vec2 pup_spawn;
     int pups{0};
     sdlxx::Sdl_renderer& _renderer;
 };

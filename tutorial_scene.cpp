@@ -10,7 +10,6 @@ extern Scene * current_scene;
 extern std::unique_ptr<Home_scene> home;
 
 Tutorial_scene::Tutorial_scene(sdlxx::Sdl_renderer& renderer)
-    // : _renderer{renderer}
     : _overlay{"resources/overlay.bmp", renderer}
 {
     std::cout << "tutorial constructed!";
