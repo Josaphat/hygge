@@ -19,6 +19,7 @@ SceneImporter::~SceneImporter() {}
 Platforming_scene SceneImporter::load(string path)
 {
     Platforming_scene scene{renderer};
+    std::map<Symbol, std::vector<SDL_Rect>> objects;
     // read in BMP file or some **** like that
     ifstream file(path);
     if (file.is_open()) {

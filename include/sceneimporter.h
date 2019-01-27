@@ -28,7 +28,6 @@ public:
 
 private:
     Sdl_renderer& renderer;
-    std::map<Symbol, std::vector<SDL_Rect>> objects;
 };
 }  // namespace sdlxx
 #endif  // !SCENEIMPORTER_H

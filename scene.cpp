@@ -13,7 +13,6 @@ void Scene::draw(sdlxx::Sdl_renderer& renderer)
 {
     for (auto& object : scene_objects) { object->draw(renderer); }
 
-    printf("Drawing, score is currently: %d\n", Score::sharedInstance().get());
     Score::sharedInstance().draw(renderer);
 }
 
