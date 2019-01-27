@@ -77,9 +77,9 @@ void Player::collide(Game_object& rhs)
 	if (rhs.isPlatform && velocity.y > 0) {
 		// We're falling
 		auto overlap_y = (position.y + height + velocity.y) - rhs.position.y;
-		// Check if the topmost border is already past the objects topmost border
+		// Check if the bottommost border is already past the objects topmost border
 		bool past_border;
-		if ((position.y - rhs.position.y) > 0) {
+		if (((position.y + height - velocity.y) - rhs.position.y) > 0) {
 			past_border = true;
 		}
 		else {
