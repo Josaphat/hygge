@@ -12,6 +12,7 @@
 #include "not_a_platform.h"
 #include "player.h"
 #include "pupper.h"
+#include "fire.h"
 
 namespace sdlxx {
 
@@ -27,6 +28,7 @@ public:
         N = 'N',
         O = 'O',
         P = 'P',
+        F = 'F',
     };
 
     SceneImporter(sdlxx::Sdl_renderer& ren) : renderer(ren) {}
@@ -148,7 +150,10 @@ public:
 							scene.addObject(std::make_unique<Not_A_Platform>(
 								rect.x, rect.y, rect.w, rect.h));
 							break;
-
+                        case Symbol::F:
+                            scene.addObject(std::make_unique<Fire>(
+                                renderer, rect.x, rect.y));
+                            break;
                         default:
                             break;
                     }
