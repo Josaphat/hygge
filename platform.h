@@ -11,6 +11,7 @@ public:
                       {static_cast<double>(x), static_cast<double>(y)},
                       {0, 0}}
     {
+        isPlatform = true;
     }
 
     void update() override {}

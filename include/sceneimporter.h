@@ -17,6 +17,7 @@ public:
         X = 'X',
         R = 'R',
         G = 'G',
+        B = 'B',
     };
 
     SceneImporter(Sdl_renderer& ren);

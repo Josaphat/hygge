@@ -14,3 +14,8 @@ void Scene::addObject(std::unique_ptr<Game_object> object)
 {
     scene_objects.emplace_back(std::move(object));
 }
+
+void Scene::addObject(std::unique_ptr<Game_object> object, int)
+{
+    scene_objects.insert(scene_objects.begin(), std::move(object));
+}
