@@ -1,17 +1,53 @@
 #include "patrolling_minion.h"
+#include "input_map.h"
+#include "screen_config.h"
 
 Patrolling_Minion::Patrolling_Minion(sdlxx::Sdl_renderer& renderer, int x_pos, int y_pos)
-    : Mover{renderer,
-            50,
-            50,
-            x_pos,
-            y_pos,
-            "resources/minion.bmp"}
+    : Game_object{height,
+				  width,
+				  {static_cast<double>(x_pos), static_cast<double>(y_pos)},
+				  {0, 0},
+				  true},
+	texture{"resources/minion.bmp", renderer }
 {
     isPlayer = false;
     isVillain = true;
 }
+void Patrolling_Minion::update()
+{
+	// if we're going to run off the scene switch directions
+	if (position.x >= window_width - 45) {
+		move_right = false;
+	}
+	if (position.x <= 25) {
+		move_right = true;
+	}
 
+	velocity.x = 0;
+	if (move_right) { velocity.x += move_speed; }
+	else {
+		velocity.x -= move_speed;
+	}
+
+	velocity.y += gravity;
+}
+
+void Patrolling_Minion::draw(sdlxx::Sdl_renderer& renderer)
+{
+	position.y += velocity.y;
+	position.x += velocity.x;
+	renderer.draw_rect(position.x, position.y, width, height, 0, 0, 255);
+	SDL_Rect rect;
+	rect.x = position.x;
+	rect.y = position.y;
+	rect.w = width;
+	rect.h = height;
+	SDL_RendererFlip flip{ SDL_FLIP_NONE };
+	if (move_right) {
+		flip = SDL_FLIP_HORIZONTAL;
+	}
+	SDL_RenderCopyEx(renderer, texture, NULL, &rect, 0.0, NULL, flip);
+}
 void Patrolling_Minion::collide(Game_object& rhs)
 {
 	bool on_top = false;
