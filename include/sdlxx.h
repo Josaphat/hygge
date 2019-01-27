@@ -80,10 +80,21 @@ public:
         copy(texture, x, y, w, h);
     }
 
+    void copy(SDL_Texture* texture, int x, int y, SDL_Rect* clip)
+    {
+        int w, h;
+        w = clip->w;
+        h = clip->h;
+        SDL_Rect dest{ x, y, w, h };
+        SDL_RenderCopyEx(renderer_, texture, clip, &dest,0,
+            /*center=*/nullptr, SDL_FLIP_NONE);
+    }
+
     void copy(SDL_Texture* texture, int x, int y, SDL_Rect* clip, double angle)
     {
         int w, h;
-        SDL_QueryTexture(texture, nullptr, nullptr, &w, &h);
+        w = clip->w;
+        h = clip->h;
         SDL_Rect dest{x, y, w, h};
         SDL_RenderCopyEx(renderer_, texture, clip, &dest, angle,
                          /*center=*/nullptr, SDL_FLIP_NONE);

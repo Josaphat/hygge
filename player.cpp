@@ -1,6 +1,7 @@
 #include "player.h"
 #include "input_map.h"
 #include "screen_config.h"
+#include "score.h"
 
 Player::Player(sdlxx::Sdl_renderer& renderer)
     : Game_object{/*height*/ 75,
@@ -69,6 +70,7 @@ void Player::collide(Game_object& rhs)
 
     if (rhs.isVillain) {
         rhs.set_to_destroy();
+        Score::sharedInstance().increment();
     }
 
 	// If we're moving left or right and we hit a barrier move back to the last position of the x coordinate
