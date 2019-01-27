@@ -12,6 +12,11 @@ static double starting_position_y = 0;
 Home_scene::Home_scene(sdlxx::Sdl_renderer& renderer) : renderer{renderer} {
 }
 
+void Home_scene::player_died()
+{
+    player_was_dead = true;
+}
+
 void Home_scene::update()
 {
     if (pups < Score::sharedInstance().get()) {
@@ -49,8 +54,13 @@ void Home_scene::update()
     }
 
     if (player->position.x < 0) {
+        if (player_was_dead) {
+            --platscene_iter;
+            player_was_dead = false;
+        }
         current_scene = &(*platscene_iter);
         ++platscene_iter;
+
         player->position.x = starting_position_x;
         player->position.y = starting_position_y;
     }

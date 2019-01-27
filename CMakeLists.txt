@@ -20,6 +20,7 @@ else()
     tutorial_scene.cpp
     home_scene.cpp
     platforming_scene.cpp
+    you_died.cpp
     )
 
   target_link_libraries(hygge PRIVATE ${SDL2_LIBRARY})
