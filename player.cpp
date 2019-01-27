@@ -88,6 +88,7 @@ void Player::collide(Game_object& rhs)
 		}
 		if (overlap_x > 0 && past_border == false) {
 			velocity.x = 0;
+			position.x = rhs.position.x - width;
 		}
 	}
 	else if (rhs.isPlatform && velocity.x < 0) {
@@ -103,6 +104,7 @@ void Player::collide(Game_object& rhs)
 		}
 		if (overlap_x < 0 && past_border == false) {
             velocity.x = 0;
+			position.x = rhs.position.x + rhs.width;
 		}
 	}
 
@@ -124,6 +126,7 @@ void Player::collide(Game_object& rhs)
 			jumping = false;
 			double_jump = false;
 			velocity.y = 0;
+			position.y = rhs.position.y - height;
 		}
 	}
 }
