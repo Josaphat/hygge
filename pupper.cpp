@@ -9,10 +9,10 @@ Pupper::Pupper(sdlxx::Sdl_renderer& renderer, int x, int y)
 {
 }
 
-void Pupper::update() {
-}
+void Pupper::update() {}
 
-void Pupper::collide(Game_object& other) {
+void Pupper::collide(Game_object& other)
+{
     if (other.isPlayer) {
         held = true;
         position.x = other.position.x + 10;
