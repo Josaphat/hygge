@@ -113,6 +113,13 @@ public:
                 }
             }
             file.close();
+            
+            bool addPlayer = false;
+            SDL_Rect playerRect;
+
+            bool addPupper = false;
+            SDL_Rect pupperRect;
+
             for (auto it = objects.begin(); it != objects.end(); ++it) {
                 Symbol sym = it->first;
                 std::vector<SDL_Rect> vec = it->second;
@@ -125,9 +132,8 @@ public:
                     rect.h *= 10;
                     switch (sym) {
                         case Symbol::G:
-                            scene.addObject(std::make_unique<Player>(
-                                                renderer, rect.x, rect.y),
-                                            0);
+                            addPlayer = true;
+                            playerRect = rect;
                             break;
                         case Symbol::R:
                             scene.addObject(std::make_unique<Platform>(
@@ -138,8 +144,8 @@ public:
                                 rect.x, rect.y, rect.w, rect.h));
                             break;
                         case Symbol::B:
-                            scene.addObject(std::make_unique<Pupper>(
-                                renderer, rect.x, rect.y));
+                            addPupper = true;
+                            pupperRect = rect;
                             break;
                         case Symbol::M:
                             scene.addObject(std::make_unique<Minion>(
@@ -157,9 +163,9 @@ public:
                             scene.addObject(std::make_unique<Fire>(
                                 renderer, rect.x, rect.y));
                             break;
-			case Symbol::P:
-        		    scene.addObject(std::make_unique<Patrolling_Minion>(
-        			renderer, rect.x, rect.y));
+			            case Symbol::P:
+        		            scene.addObject(std::make_unique<Patrolling_Minion>(
+        			            renderer, rect.x, rect.y));
                             break;
 
                         case Symbol::END:
@@ -170,6 +176,14 @@ public:
                             break;
                     }
                 }
+            }
+            if (addPlayer) {
+                scene.addObject(std::make_unique<Player>(
+                    renderer, playerRect.x, playerRect.y));
+            }
+            if (addPupper) {
+                scene.addObject(std::make_unique<Pupper>(
+                    renderer, pupperRect.x, pupperRect.y));
             }
         }
 
