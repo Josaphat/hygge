@@ -14,6 +14,7 @@ else()
     player.cpp
     pupper.cpp
     minion.cpp
+    patrolling_minion.cpp
     mover.cpp
     moverpup.cpp
 
