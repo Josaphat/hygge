@@ -17,8 +17,7 @@ private:
     const int gravity = 2;
 
     bool jumping = false;
-    bool ready_for_double_jump = false;
-    bool double_jump = false;
+    bool ready_for_jump = true;
     int jump_frame = 0;
 
     Vec2 last_velocity = {0, 0};
