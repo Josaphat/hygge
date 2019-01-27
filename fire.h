@@ -25,10 +25,10 @@ public:
     {
         auto texture = Sdl_texture{ "fireplace.bmp", renderer };
         SDL_Rect clip;
-        clip.x = (currentFrame / 4) * 560;
+        clip.x = (currentFrame / 4) * 112;
         clip.y = 0;
-        clip.h = 560;
-        clip.w = 550;
+        clip.h = 112;
+        clip.w = 109;
 
         SDL_Rect dest;
         dest.x = position.x;
