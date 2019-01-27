@@ -4,6 +4,7 @@
 #include "platforming_scene.h"
 #include "player.h"
 #include "pupper.h"
+#include "minion.h"
 
 #include <fstream>
 #include <iostream>
@@ -112,6 +113,9 @@ Platforming_scene SceneImporter::load(string path)
                     case Symbol::B:
                         scene.addObject(
                             std::make_unique<Pupper>(renderer, rect.x, rect.y));
+                        break;
+                    case Symbol::M:
+                        scene.addObject(std::make_unique<Minion>(renderer, rect.x, rect.y));
                         break;
                     default:
                         break;
