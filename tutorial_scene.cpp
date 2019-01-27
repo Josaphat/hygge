@@ -64,12 +64,12 @@ void Tutorial_scene::update()
 
 void Tutorial_scene::draw(sdlxx::Sdl_renderer& renderer)
 {
+    // sdlxx::Sdl_texture overlay{"resources/overlay.bmp", renderer};
+    renderer.copy(_overlay, 0, 0);
     for (auto& object : scene_objects) { object->draw(renderer); }
 
     Score::sharedInstance().draw(renderer);
     std::cout << "Drawing the overlay\n";
 
-    // sdlxx::Sdl_texture overlay{"resources/overlay.bmp", renderer};
-    renderer.copy(_overlay, 0, 0);
 }
 
