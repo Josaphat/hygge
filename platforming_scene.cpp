@@ -1,35 +1,34 @@
 #include "platforming_scene.h"
-#include "platform.h"
-#include "goal.h"
-#include "player.h"
-#include "pupper.h"
-#include "screen_config.h"
+#include <chrono>
 #include "home_scene.h"
+#include "platform.h"
+#include "screen_config.h"
+#include "you_died.h"
 
-extern Scene * current_scene;
+extern Scene* current_scene;
+extern std::unique_ptr<You_died> you_died;
 extern std::unique_ptr<Home_scene> home;
 
-Platforming_scene::Platforming_scene(sdlxx::Sdl_renderer& renderer) : _renderer(renderer)
-{
+decltype(std::chrono::high_resolution_clock::now()) die_time;
 
+Platforming_scene::Platforming_scene(sdlxx::Sdl_renderer& renderer)
+    : _renderer(renderer)
+{
 }
 
 void Platforming_scene::update()
 {
-    Player* player = nullptr;
-    Pupper* pupper = nullptr;
-    Goal* mailbox = nullptr;
     if (player == nullptr) {
         for (auto& object : scene_objects) {
             if (object->isPlayer) {
                 player = dynamic_cast<Player*>(object.get());
+                player_spawn.x = player->position.x;
+                player_spawn.y = player->position.y;
             }
             if (object->isPupper) {
                 pupper = dynamic_cast<Pupper*>(object.get());
             }
-            if (object->isGoal) {
-                mailbox = dynamic_cast<Goal*>(object.get());
-            }
+            if (object->isGoal) { mailbox = dynamic_cast<Goal*>(object.get()); }
         }
     }
 
@@ -50,9 +49,15 @@ void Platforming_scene::update()
             ++iter;
     }
 
+    if (player->position.y > window_height) {
+        // Dead!
+        die_time = std::chrono::high_resolution_clock::now();
+        current_scene = you_died.get();
+        player->position.x = player_spawn.x;
+        player->position.y = player_spawn.y;
+    }
+
     if (player->collides_with(*mailbox)) {
-        if (pupper->isHeld()) {
-            current_scene = home.get();
-        }
+        if (pupper->isHeld()) { current_scene = home.get(); }
     }
 }

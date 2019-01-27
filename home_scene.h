@@ -8,8 +8,11 @@ public:
     Home_scene(sdlxx::Sdl_renderer& renderer);
     void update() override;
 
+    void player_died();
+
 private:
     int pups = 0;
+    bool player_was_dead = false;
     sdlxx::Sdl_renderer& renderer;
 };
 

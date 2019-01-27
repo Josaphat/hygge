@@ -7,6 +7,7 @@
 #include "include/sdlxx.h"
 #include "input_map.h"
 #include "platforming_scene.h"
+#include "you_died.h"
 #include "screen_config.h"
 #include "tutorial_scene.h"
 #include "vec2.h"
@@ -19,6 +20,7 @@ Input_map input_state;
 
 std::unique_ptr<Tutorial_scene> tutorial;
 std::unique_ptr<Home_scene> home;
+std::unique_ptr<You_died> you_died;
 
 std::vector<Platforming_scene> scenes;
 std::vector<Platforming_scene>::iterator platscene_iter;
@@ -46,6 +48,7 @@ int main(int argc, char* argv[])
         importer.load<Tutorial_scene>("scenes/tutorial_scene.txt"s));
     home =
         std::make_unique<Home_scene>(importer.load<Home_scene>("scenes/sceneHouse.txt"s));
+    you_died = std::make_unique<You_died>(ren);
     for (auto i = 0; i < 4; ++i) {
         scenes.emplace_back(
             importer.load<Platforming_scene>("scenes/scene"s + std::to_string(i) + ".txt"s));

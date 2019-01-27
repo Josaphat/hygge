@@ -14,12 +14,14 @@ else()
     player.cpp
     pupper.cpp
     minion.cpp
+    patrolling_minion.cpp
     mover.cpp
     moverpup.cpp
 
     tutorial_scene.cpp
     home_scene.cpp
     platforming_scene.cpp
+    you_died.cpp
     )
 
   target_link_libraries(hygge PRIVATE ${SDL2_LIBRARY})
