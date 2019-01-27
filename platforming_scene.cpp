@@ -4,6 +4,7 @@
 #include "platform.h"
 #include "screen_config.h"
 #include "you_died.h"
+#include "score.h"
 
 extern Scene* current_scene;
 extern std::unique_ptr<You_died> you_died;
@@ -58,6 +59,9 @@ void Platforming_scene::update()
     }
 
     if (player->collides_with(*mailbox)) {
-        if (pupper->isHeld()) { current_scene = home.get(); }
+        if (pupper->isHeld()) {
+            current_scene = home.get();
+            Score::sharedInstance().increment();
+        }
     }
 }

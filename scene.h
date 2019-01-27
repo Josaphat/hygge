@@ -3,6 +3,7 @@
 
 #include <memory>
 #include <vector>
+
 #include "game_object.h"
 #include "include/sdlxx.h"
 

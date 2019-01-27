@@ -55,7 +55,7 @@ void Player::collide(Game_object& rhs)
 {
     if (rhs.isVillain) {
         rhs.set_to_destroy();
-        Score::sharedInstance().increment();
+        Score::sharedInstance().set(0);
     }
 
     bool on_top = false;

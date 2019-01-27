@@ -17,12 +17,19 @@ void Home_scene::player_died()
     player_was_dead = true;
 }
 
+void Home_scene::removePupper() {
+    std::vector<std::unique_ptr<Game_object>>::iterator it;
+    for (it = scene_objects.begin(); it < scene_objects.end(); ++it) {
+        if ((*it)->isPupper) {
+            scene_objects.erase(it);
+            --pups;
+            break;
+        }
+    }
+}
+
 void Home_scene::update()
 {
-    if (pups < Score::sharedInstance().get()) {
-        addObject(std::make_unique<MoverPup>(renderer, 50, 50));
-        ++pups;
-    }
     Player* player = nullptr;
     if (player == nullptr) {
         for (auto& object : scene_objects) {
@@ -34,6 +41,14 @@ void Home_scene::update()
                 }
             }
         }
+    }
+    if (pups < Score::sharedInstance().get()) {
+        addObject(std::make_unique<MoverPup>(
+            renderer, player->position.x, player->position.y + 100));
+        ++pups;
+    }
+    if (pups > Score::sharedInstance().get()) {
+        removePupper();
     }
 
     for (auto& object : scene_objects) { object->update(); }

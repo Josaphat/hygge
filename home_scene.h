@@ -14,6 +14,8 @@ private:
     int pups = 0;
     bool player_was_dead = false;
     sdlxx::Sdl_renderer& renderer;
+
+    void removePupper();
 };
 
 #endif

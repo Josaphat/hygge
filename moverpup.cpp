@@ -10,6 +10,7 @@ MoverPup::MoverPup(sdlxx::Sdl_renderer& renderer, int x_pos, int y_pos)
 {
     isPlayer = false;
     isVillain = false;
+    isPupper = true;
     move_speed = rand() % 9 + 2;
     air_move_speed = move_speed - 1;
     gravity = rand() % 5 + 1;
