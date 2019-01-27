@@ -46,7 +46,7 @@ int main(int argc, char* argv[])
         importer.load<Tutorial_scene>("scenes/tutorial_scene.txt"s));
     home =
         std::make_unique<Home_scene>(importer.load<Home_scene>("scenes/sceneHouse.txt"s));
-    for (auto i = 0; i < 3; ++i) {
+    for (auto i = 0; i < 4; ++i) {
         scenes.emplace_back(
             importer.load<Platforming_scene>("scenes/scene"s + std::to_string(i) + ".txt"s));
     }
