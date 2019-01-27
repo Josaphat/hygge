@@ -10,6 +10,7 @@
 #include "goal.h"
 #include "minion.h"
 #include "not_a_platform.h"
+#include "patrolling_minion.h"
 #include "platform.h"
 #include "player.h"
 #include "pupper.h"
@@ -28,7 +29,7 @@ public:
         M = 'M',    // Minion
         N = 'N',    // Decorator platform
         O = 'O',    // Also decorator platform
-        P = 'P',    // Unused
+        P = 'P',    // Patrolling Minion
         F = 'F',    // Fire
         END = '=',  // End Goal
     };
@@ -156,6 +157,11 @@ public:
                             scene.addObject(std::make_unique<Fire>(
                                 renderer, rect.x, rect.y));
                             break;
+			case Symbol::P:
+        		    scene.addObject(std::make_unique<Patrolling_Minion>(
+        			renderer, rect.x, rect.y));
+                            break;
+
                         case Symbol::END:
                             scene.addObject(std::make_unique<Goal>(
                                 renderer, rect.x, rect.y));

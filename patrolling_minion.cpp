@@ -3,12 +3,12 @@
 #include "screen_config.h"
 
 Patrolling_Minion::Patrolling_Minion(sdlxx::Sdl_renderer& renderer, int x_pos, int y_pos)
-    : Game_object{height,
-				  width,
+    : Game_object{50,
+				  50,
 				  {static_cast<double>(x_pos), static_cast<double>(y_pos)},
 				  {0, 0},
 				  true},
-	texture{"resources/minion.bmp", renderer }
+	texture{ "resources/minion.bmp", renderer }
 {
     isPlayer = false;
     isVillain = true;
