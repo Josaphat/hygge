@@ -9,7 +9,7 @@ using namespace sdlxx;
 
 class Score {
 public:
-    Score() {}
+    Score() = default;
     ~Score() {}
     static Score& sharedInstance() {
         static Score instance;
