@@ -19,7 +19,6 @@ public:
     void update() override {}
     void draw(sdlxx::Sdl_renderer& renderer) override
     {
-        renderer.draw_rect(position.x, position.y, width, height, 0, 255, 0);
         renderer.copy(texture, int(position.x), int(position.y));
     }
 

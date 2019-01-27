@@ -32,7 +32,6 @@ void Mover::update()
 
 void Mover::draw(sdlxx::Sdl_renderer& renderer)
 {
-    renderer.draw_rect(position.x, position.y, width, height, 0, 0, 255);
     SDL_Rect rect;
     rect.x = position.x;
     rect.y = position.y;

@@ -47,7 +47,6 @@ void Player::draw(sdlxx::Sdl_renderer& renderer)
 {
     position.x += velocity.x;
     position.y += velocity.y;
-    renderer.draw_rect(position.x, position.y, width, height, 0, 255, 0);
     renderer.copy(texture, int(position.x), int(position.y));
 }
 

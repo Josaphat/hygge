@@ -36,7 +36,6 @@ void Patrolling_Minion::draw(sdlxx::Sdl_renderer& renderer)
 {
 	position.y += velocity.y;
 	position.x += velocity.x;
-	renderer.draw_rect(position.x, position.y, width, height, 0, 0, 255);
 	SDL_Rect rect;
 	rect.x = position.x;
 	rect.y = position.y;
