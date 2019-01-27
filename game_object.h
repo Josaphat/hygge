@@ -53,6 +53,9 @@ public:
     Vec2 position;
     Vec2 velocity;
     bool destroy = false;
+    bool isPlayer = false;
+    bool isVillain = false;
+    bool isPlatform = false;
 };
 
 #endif

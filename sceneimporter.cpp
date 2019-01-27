@@ -3,6 +3,7 @@
 #include "platform.h"
 #include "platforming_scene.h"
 #include "player.h"
+#include "pupper.h"
 
 #include <fstream>
 #include <iostream>
@@ -98,7 +99,7 @@ Platforming_scene SceneImporter::load(string path)
                 rect.h *= 10;
                 switch (sym) {
                     case Symbol::G:
-                        scene.addObject(std::make_unique<Player>(renderer));
+                        scene.addObject(std::make_unique<Player>(renderer), 0);
                         break;
                     case Symbol::R:
                         scene.addObject(std::make_unique<Platform>(
@@ -107,6 +108,10 @@ Platforming_scene SceneImporter::load(string path)
                     case Symbol::X:
                         scene.addObject(std::make_unique<Platform>(
                             rect.x, rect.y, rect.w, rect.h));
+                        break;
+                    case Symbol::B:
+                        scene.addObject(
+                            std::make_unique<Pupper>(renderer, rect.x, rect.y));
                         break;
                     default:
                         break;

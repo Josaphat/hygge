@@ -10,6 +10,8 @@ Minion::Minion(sdlxx::Sdl_renderer& renderer, int x_pos, int y_pos)
                   true},
       texture{"resources/minion.bmp", renderer}
 {
+    isPlayer = false;
+    isVillain = true;
 }
 Minion::Minion(sdlxx::Sdl_renderer& renderer)
     : Game_object{50,
@@ -19,6 +21,8 @@ Minion::Minion(sdlxx::Sdl_renderer& renderer)
                   true},
       texture{"resources/minion.bmp", renderer}
 {
+    isPlayer = false;
+    isVillain = true;
 }
 
 void Minion::update()
