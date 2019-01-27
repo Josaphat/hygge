@@ -17,7 +17,7 @@ Input_map input_state;
 
 std::vector<Platforming_scene> scenes;
 
-decltype(scenes.begin()) current_scene;
+std::vector<Platforming_scene>::iterator current_scene;
 
 int main(int argc, char* argv[])
 {

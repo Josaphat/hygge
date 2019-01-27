@@ -1,4 +1,6 @@
 #include "pupper.h"
+#include "platforming_scene.h"
+#include "screen_config.h"
 
 Pupper::Pupper(sdlxx::Sdl_renderer& renderer, int x, int y)
     : Game_object{/*height*/ 35,
@@ -9,7 +11,13 @@ Pupper::Pupper(sdlxx::Sdl_renderer& renderer, int x, int y)
 {
 }
 
-void Pupper::update() {}
+extern std::vector<Platforming_scene>::iterator current_scene;
+
+void Pupper::update() {
+    if (position.x > window_width) {
+        ++current_scene;
+    }
+}
 
 void Pupper::collide(Game_object& other)
 {
